@@ -151,9 +151,10 @@ function checkboxLabel(text) {
 }
 
 if (qSelector(CHECK_BOX)) {
-    if (/Verification expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
+    if (/Verification.+expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
         console.log('verification expired')
         checkboxLabel("Verification expired")
+        checkBoxClicked = true;
     } else {
         GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
         //qSelector(CHECK_BOX).click();
@@ -171,7 +172,7 @@ var startInterval = setInterval(function() {
     try {
         if (!checkBoxClicked && qSelector(CHECK_BOX) && !isHidden(qSelector(CHECK_BOX))) {
             //console.log("checkbox clicked");
-            if (/Verification expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
+            if (/Verification.+expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
                 console.log('verification expired 1')
                 checkboxLabel("Verification expired")
                 GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
