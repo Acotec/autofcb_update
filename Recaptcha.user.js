@@ -22,6 +22,7 @@ var audioUrl = "";
 var recaptchaInitialStatus = qSelector(RECAPTCHA_STATUS) ? qSelector(RECAPTCHA_STATUS).innerText : ""
 var serversList = ["http://acotecrecap.pythonanywhere.com"];
 var latencyList = Array(serversList.length).fill(10000);
+var time=0
 
 function AutoSolveCaptcha() {
     0 == GM_getValue("AutoSolveCaptcha", !1) ? GM_setValue("AutoSolveCaptcha", !0) : GM_setValue("AutoSolveCaptcha", !1);
@@ -154,7 +155,7 @@ if (qSelector(CHECK_BOX)) {
     if (/Verification.+expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
         console.log('verification expired')
         checkboxLabel("Verification expired")
-        checkBoxClicked = true;
+        //checkBoxClicked = true;
     } else {
         GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
         //qSelector(CHECK_BOX).click();
@@ -177,7 +178,7 @@ var startInterval = setInterval(function() {
                 checkboxLabel("Verification expired")
                 GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
                 //qSelector(CHECK_BOX).click();
-                checkBoxClicked = true;
+                //checkBoxClicked = true;
             } else {
                 GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
                 //qSelector(CHECK_BOX).click();
@@ -235,4 +236,4 @@ var startInterval = setInterval(function() {
         checkboxLabel("Error occurred while solving")
         clearInterval(startInterval);
     }
-},);
+},time);
