@@ -189,10 +189,17 @@ var startInterval = setInterval(function() {
         }
         //Check if the captcha is solved
         if (qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText != recaptchaInitialStatus)) {
-            solved = true;
-            console.log("SOLVED");
-            checkboxLabel("SOLVED")
-            clearInterval(startInterval);
+            if (/challenge.+expired/ig.test(qSelector(RECAPTCHA_STATUS) && (qSelector(RECAPTCHA_STATUS).innerText))) {
+                console.log('Challenge expired 1')
+                checkboxLabel("Challenge expired")
+                GM_getValue("AutoSolveCaptcha",!1)&&qSelector(CHECK_BOX).click()
+                //qSelector(CHECK_BOX).click();
+                //checkBoxClicked = true;
+            } else{
+                solved = true;
+                console.log("SOLVED");
+                checkboxLabel("SOLVED")
+                clearInterval(startInterval);}
         }
         if (requestCount > MAX_ATTEMPTS) {
             console.log("Attempted Max Retries. Stopping the solver");
